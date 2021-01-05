@@ -98,6 +98,11 @@ contract Bank {
         } else emit LowFunds(msg.sender, "Account does not have enough funds");
     }
 
+
+    /// @return balance of an account in the bank
+    function getBalance() public view NonOwner returns (uint256) {
+        return balances[msg.sender];
+    }
     /// @return balance of the Simple Bank contract (represents the bank balance)
     function bankBalance() public view OnlyOwner returns (uint256) {
         return address(this).balance;
