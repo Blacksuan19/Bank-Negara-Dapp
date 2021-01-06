@@ -1,2 +1,6 @@
-build/*
+build
+node_modules
+bin
+.vscode
+.solhint.json
 
