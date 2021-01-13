@@ -56,12 +56,24 @@ App = {
     await App.bankNegara.setThreshold({ from: App.account });
   },
 
+  // deposit then update the balance text
   deposit: async (amount) => {
-    await App.bankNegara.deposit({ from: App.account, value: amount });
+    await App.bankNegara
+      .deposit({ from: App.account, value: amount })
+      .then(() => {
+        App.setBalance();
+        // reset amount input
+        $("#amount").val("");
+      });
   },
 
+  // withdraw then update the balance text
   withdraw: async (amount) => {
-    await App.bankNegara.withdraw(amount, { from: App.account });
+    await App.bankNegara.withdraw(amount, { from: App.account }).then(() => {
+      App.setBalance();
+      // reset amount input
+      $("#amount").val("");
+    });
   },
 
   render: async () => {
@@ -98,7 +110,10 @@ App = {
           bal = await App.getBalance();
           if (amount <= bal) {
             App.withdraw(amount);
-          } else window.alert("Not Enough Balance in Bank!");
+          } else {
+            window.alert("Not Enough Balance in Bank!");
+            $("#amount").val("");
+          }
         } else window.alert("Please Enter a valid Amount!");
       });
 
@@ -110,12 +125,14 @@ App = {
     $("#account").html(App.account);
 
     // set balance
-    $("#balance").html(`${App.formatMoney(await App.getBalance())}`);
+    App.setBalance();
 
     // Update loading state
     App.loading = false;
   },
-
+  setBalance: async () => {
+    $("#balance").html(`${App.formatMoney(await App.getBalance())}`);
+  },
   // convert to usd then to ether and finally to wei
   formatEther: (amount) => App.web3.toWei(amount / 1065 / 4.04),
 
