@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.4.22 <0.7.0;
 
-
 contract Bank {
-    uint256 public threashold;
+    uint256 public threshold;
     uint256 max;
     mapping(address => uint256) private balances; // keep track of individual balances
     address[] accounts; // store accounts hashes for when there is a chance of money laundering
     address owner;
 
-    // emitted when a trasnaction value > threashold
+    // emitted when a trasnaction value > threshold
     event AboveLimitTransaction(
         string message,
         address indexed accountAddress,
@@ -38,15 +37,15 @@ contract Bank {
     }
 
     constructor() public {
-        // set owner, transaction threashold, and max allowed money in bank
+        // set owner, transaction threshold, and max allowed money in bank
         owner = msg.sender;
         max = 50 ether;
-        threashold = 10 ether;
+        threshold = 10 ether;
     }
 
-    // set threashold for any transaction
+    // set threshold for any transaction
     function setThreshold(uint256 _thres) public payable OnlyOwner {
-        threashold = _thres;
+        threshold = _thres;
     }
 
     function deposit() public payable NonOwner {
@@ -58,10 +57,10 @@ contract Bank {
         // because its automatically done
         balances[msg.sender] += msg.value;
 
-        // send an alert if its above the threashold
-        if (msg.value > threashold) {
+        // send an alert if its above the threshold
+        if (msg.value > threshold) {
             emit AboveLimitTransaction(
-                "transaction amount above threashold! ",
+                "transaction amount above threshold! ",
                 msg.sender,
                 msg.value
             );
@@ -77,9 +76,9 @@ contract Bank {
         // Check enough balance available
         if (amount <= balances[msg.sender]) {
             // check if above tranaction limit
-            if (amount > threashold) {
+            if (amount > threshold) {
                 emit AboveLimitTransaction(
-                    "transaction amount above threashold! ",
+                    "transaction amount above threshold! ",
                     msg.sender,
                     amount
                 );
@@ -98,11 +97,11 @@ contract Bank {
         } else emit LowFunds(msg.sender, "Account does not have enough funds");
     }
 
-
     /// @return balance of an account in the bank
     function getBalance() public view NonOwner returns (uint256) {
         return balances[msg.sender];
     }
+
     /// @return balance of the Simple Bank contract (represents the bank balance)
     function bankBalance() public view OnlyOwner returns (uint256) {
         return address(this).balance;
