@@ -29,12 +29,12 @@ a decentralized App representing a bank
 - [nodejs](https://nodejs.org/en/download/)
 - [Truffle](https://www.trufflesuite.com/)
 - [ganache](https://www.trufflesuite.com/ganache)
+- install required packages with `npm install`
 
 ## Development
 
 - Compile code via `truffle compile`
 - deploy to ganache using `truffle migrate --reset`
-- run `truffle migrate --network ropstan` to deploy to ropstan test network
 - `truffle console` to interact with the deployed contract
 
 ## Contract Tests
@@ -42,9 +42,12 @@ a decentralized App representing a bank
 - tests are located in the test folder
 - to run tests run `truffle test`
 
+## Deployment
+
+- run `truffle migrate --network ropstan` to deploy to ropstan test network
+
 ## Web Interface development
 
-- install required packages with `npm install`
 - start the server using `npm run dev`
 
 ## Web Interface Preview
