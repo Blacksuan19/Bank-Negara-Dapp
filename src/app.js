@@ -148,13 +148,13 @@ App = {
   setBalance: async () => {
     $("#balance").html(`${App.formatMoney(await App.getBalance())}`);
   },
-  // convert to usd then to ether and finally to wei
-  formatEther: (amount) => App.web3.toWei(amount / 1065 / 4.04),
+  // convert to ether and finally to wei
+  formatEther: (amount) => App.web3.toWei(amount / 4470.22),
 
   // convert and format number to MYR
   formatMoney: (amount) => {
-    // convert to ether then to usd then to myr according to rates as of 13-01-2021
-    amount = App.web3.fromWei(amount, "ether") * 1065 * 4.04;
+    // convert to ether then to myr according to rates as of 14-01-2021
+    amount = App.web3.fromWei(amount, "ether") * 4470.22;
 
     var formatter = new Intl.NumberFormat("en-MY", {
       style: "currency",
