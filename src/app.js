@@ -55,6 +55,10 @@ App = {
   setThreshold: async () => {
     await App.bankNegara.setThreshold({ from: App.account });
   },
+  getThreshold: async () => {
+    thres = await App.bankNegara.threshold({ from: App.account });
+    return thres.toNumber();
+  },
 
   // deposit then update the balance text
   deposit: async (amount) => {
@@ -87,8 +91,19 @@ App = {
 
     // render different UI based on account type
     if (App.owner == App.account) {
+      // set balance type label
+      $("#type-label").html("Bank Balance");
+
+      // set threshold amount
+      $("#threshold").html(
+        `${App.formatMoney(await App.getThreshold())} /
+         ${App.web3.fromWei(thres)} ETH`
+      );
+
+      $("#thres-div").show();
       $("#admin").show();
     } else {
+      $("#type-label").html("Balance");
       // set up deposit button click hook
       $("#deposit").click(() => {
         amount = $("#amount").val();

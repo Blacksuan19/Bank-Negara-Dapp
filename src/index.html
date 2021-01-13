@@ -23,8 +23,22 @@
       </p>
       <p class="h-full text-3xl text-white pr-2 uppercase">Bank Negara</p>
     </div>
-    <div class="flex flex-col space-y-40 pt-20 pb-10 items-center">
-      <p class="p-7 h-14 text-5xl leading-10 text-red-500" id="balance">$0</p>
+    <div class="flex flex-row justify-center space-x-40 items-center">
+      <div class="flex flex-col pt-20 pb-10 items-center">
+        <p class="text-xl leading-10 text-red-500" id="type-label">Balance</p>
+        <p class="text-5xl leading-10 text-red-500" id="balance">RM 0.00</p>
+      </div>
+      <div
+        class="flex flex-col pt-20 pb-10 items-center"
+        id="thres-div"
+        style="display: none"
+      >
+        <p class="text-xl leading-10 text-red-500">Current Threshold</p>
+        <p class="text-4xl leading-10 text-red-500" id="threshold">RM 0.00</p>
+      </div>
+    </div>
+    <div id="admin" style="display: none">
+      <div class="w-full flex flex-row"></div>
     </div>
     <div id="customer" style="display: none">
       <div class="flex flex-row space-x-3 pt-40 items-center justify-center">
