@@ -2,20 +2,53 @@
 
 a decentralized App representing a bank
 
+## Features
+
+### General
+
+- contract address used as bank.
+- tests for all contract functions.
+- strict checks using modifiers.
+- strict checks in web interface.
+- different interface for admin and regular customers.
+
+### Admin
+
+- Set Transaction Threshold.
+- recive alert when transaction is above threshold.
+- recive alert when the bank has a balance of more than 50 ethers (a case of money laundering).
+
+### Users
+
+- Deposit.
+- Withdraw.
+
 ## Requirements
 
+- [Metamask](https://metamask.io/)
+- [nodejs](https://nodejs.org/en/download/)
 - [Truffle](https://www.trufflesuite.com/)
 - [ganache](https://www.trufflesuite.com/ganache)
 
 ## Development
 
-- install required packages with `npm install`
 - Compile code via `truffle compile`
 - deploy to ganache using `truffle migrate --reset`
 - run `truffle migrate --network ropstan` to deploy to ropstan test network
 - `truffle console` to interact with the deployed contract
 
-## Tests
+## Contract Tests
 
 - tests are located in the test folder
 - to run tests run `truffle test`
+
+## Web Interface development
+
+- install required packages with `npm install`
+- start the server using `npm run dev`
+
+## Web Interface Preview
+
+### Customer
+
+![customers](./screens/customers.png)

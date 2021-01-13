@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bank Negara - Dapp</title>
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div id="customer" style="display: none">
+      <div class="flex w-full max-h-44 py-2.5 justify-between bg-red-500">
+        <p
+          class="h-full text-xl pl-2 font-medium leading-loose text-white"
+          id="account"
+        >
+          Account Number
+        </p>
+        <p class="h-full text-3xl text-white pr-2 uppercase">Bank Negara</p>
+      </div>
+      <div class="flex flex-col space-y-40 pt-20 pb-10 items-center">
+        <p class="p-7 h-14 text-5xl leading-10 text-red-500" id="balance">$0</p>
+        <div class="flex flex-row space-x-3">
+          <input
+            class="input border border-gray-400 rounded-md px-3 py-3 focus focus:border-red-500 focus:outline-none"
+            id="amount"
+            type="number"
+            placeholder="Amount in RM"
+          />
+        </div>
+      </div>
+      <div class="flex w-full justify-center space-x-20 pt-40">
+        <button
+          class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 items-center py-7 pl-11 pr-8 w-1/4 h-20 bg-red-500 rounded-2xl hover:bg-red-700 focus:outline-none"
+          id="deposit"
+        >
+          <p
+            class="w-full h-full text-xl font-medium tracking-wide text-center text-white"
+          >
+            Deposit
+          </p>
+        </button>
+        <button
+          class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 items-center py-7 pl-11 pr-8 w-1/4 h-20 bg-green-500 rounded-2xl hover:bg-green-700 focus:outline-none"
+          id="withdraw"
+        >
+          <p
+            class="w-full h-full text-xl font-medium tracking-wide text-center text-white"
+          >
+            Withdraw
+          </p>
+        </button>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="vendor/truffle-contract/dist/truffle-contract.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
