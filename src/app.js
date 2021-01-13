@@ -116,7 +116,7 @@ App = {
   },
 
   // convert to usd then to ether and finally to wei
-  formatEther: (amount) => App.web3.toWei(amount * 0.25 * 0.00094),
+  formatEther: (amount) => App.web3.toWei(amount / 1065 / 4.04),
 
   // convert and format number to MYR
   formatMoney: (amount, decimalCount = 2, decimal = ".", thousands = ",") => {
