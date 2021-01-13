@@ -14,32 +14,32 @@
   </head>
 
   <body>
+    <div class="flex w-full max-h-44 py-2.5 justify-between bg-red-500">
+      <p
+        class="h-full text-xl pl-2 font-medium leading-loose text-white"
+        id="account"
+      >
+        Account Number
+      </p>
+      <p class="h-full text-3xl text-white pr-2 uppercase">Bank Negara</p>
+    </div>
+    <div class="flex flex-col space-y-40 pt-20 pb-10 items-center">
+      <p class="p-7 h-14 text-5xl leading-10 text-red-500" id="balance">$0</p>
+    </div>
     <div id="customer" style="display: none">
-      <div class="flex w-full max-h-44 py-2.5 justify-between bg-red-500">
-        <p
-          class="h-full text-xl pl-2 font-medium leading-loose text-white"
-          id="account"
+      <div class="flex flex-row space-x-3 pt-40 items-center justify-center">
+        <span
+          class="z-10 text-gray-800 absolute items-center justify-start pl-5 py-3"
+          style="margin-left: -11rem"
         >
-          Account Number
-        </p>
-        <p class="h-full text-3xl text-white pr-2 uppercase">Bank Negara</p>
-      </div>
-      <div class="flex flex-col space-y-40 pt-20 pb-10 items-center">
-        <p class="p-7 h-14 text-5xl leading-10 text-red-500" id="balance">$0</p>
-        <div class="flex flex-row space-x-3">
-          <span
-            class="z-10 h-full text-gray-800 absolute items-center justify-center pl-5 py-3"
-            style="padding-top: 0.8rem"
-          >
-            RM
-          </span>
-          <input
-            class="input border border-gray-400 rounded-md px-3 py-3 pl-10 focus focus:border-red-500 focus:outline-none"
-            id="amount"
-            type="number"
-            placeholder="0"
-          />
-        </div>
+          RM
+        </span>
+        <input
+          class="input border border-gray-400 rounded-md px-3 py-3 pl-10 focus focus:border-red-500 focus:outline-none"
+          id="amount"
+          type="number"
+          placeholder="0"
+        />
       </div>
       <div class="flex w-full justify-center space-x-20 pt-40">
         <button
