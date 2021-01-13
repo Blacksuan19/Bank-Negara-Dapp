@@ -53,8 +53,7 @@ App = {
   },
 
   setThreshold: async () => {
-    let value = await App.bankNegara.setThreshold({ from: App.account });
-    return value.toNumber();
+    await App.bankNegara.setThreshold({ from: App.account });
   },
 
   deposit: async (amount) => {
@@ -74,35 +73,36 @@ App = {
     // Update app loading state
     App.loading = true;
 
-    // Render Account
-
-    // render different UI based on account address
+    // render different UI based on account type
     if (App.owner == App.account) {
       $("#admin").show();
     } else {
       // set up deposit button click hook
       $("#deposit").click(() => {
         amount = $("#amount").val();
+        // make sure the amount field is not empty
         if (amount.length > 0) {
           amount = App.formatEther(amount);
           App.deposit(amount);
         } else window.alert("Please Enter a valid Amount!");
-        // $("#balance").html(`$${App.formatMoney(await App.getBalance())}`);
       });
 
       // set up withdraw button click hook
       $("#withdraw").click(async () => {
         amount = $("#amount").val();
 
-        // make sure user has balance
+        // make sure the amount field is not empty
         if (amount.length > 0) {
           amount = App.formatEther(amount);
+          // make sure user has enough balance
           bal = await App.getBalance();
           if (amount <= bal) {
             App.withdraw(amount);
-          } else window.alert("Not Enough Balance in bank!");
+          } else window.alert("Not Enough Balance in Bank!");
         } else window.alert("Please Enter a valid Amount!");
       });
+
+      // finally show the customer UI
       $("#customer").show();
     }
 
@@ -110,7 +110,8 @@ App = {
     $("#account").html(App.account);
 
     // set balance
-    $("#balance").html(`$${App.formatMoney(await App.getBalance())}`);
+    $("#balance").html(`${App.formatMoney(await App.getBalance())}`);
+
     // Update loading state
     App.loading = false;
   },
@@ -119,39 +120,20 @@ App = {
   formatEther: (amount) => App.web3.toWei(amount / 1065 / 4.04),
 
   // convert and format number to MYR
-  formatMoney: (amount, decimalCount = 2, decimal = ".", thousands = ",") => {
+  formatMoney: (amount) => {
     // convert to ether then to usd then to myr according to rates as of 13-01-2021
     amount = App.web3.fromWei(amount, "ether") * 1065 * 4.04;
 
-    // needs to be in a try catch just incase amount is not a number
-    try {
-      decimalCount = Math.abs(decimalCount);
-      decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+    var formatter = new Intl.NumberFormat("en-MY", {
+      style: "currency",
+      currency: "MYR",
+    });
 
-      const negativeSign = amount < 0 ? "-" : "";
-
-      let i = parseInt(
-        (amount = Math.abs(Number(amount) || 0).toFixed(decimalCount))
-      ).toString();
-      let j = i.length > 3 ? i.length % 3 : 0;
-
-      return (
-        negativeSign +
-        (j ? i.substr(0, j) + thousands : "") +
-        i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) +
-        (decimalCount
-          ? decimal +
-            Math.abs(amount - i)
-              .toFixed(decimalCount)
-              .slice(2)
-          : "")
-      );
-    } catch (e) {
-      console.log(e);
-    }
+    return formatter.format(amount);
   },
 };
 
+// start loading the app as soon as the window is loaded
 $(() => {
   $(window).load(() => {
     App.load();
