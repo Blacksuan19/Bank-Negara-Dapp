@@ -6,7 +6,7 @@ App = {
     await App.loadWeb3();
     await App.loadAccount();
     await App.loadContract();
-    await App.setExchange();
+    await App.setRate();
     await App.render();
   },
 
@@ -103,10 +103,8 @@ App = {
       $("#type-label").html("Bank Balance");
 
       // set threshold amount
-      $("#threshold").html(
-        `${App.formatMoney(await App.getThreshold())} /
-         ${App.web3.fromWei(thres)} ETH`
-      );
+      thres = await App.getThreshold();
+      $("#threshold").html(`${App.web3.fromWei(thres)} ETH`);
 
       $("#update-threshold").click(() => {
         new_val = $("#thres-val").val();
@@ -126,7 +124,7 @@ App = {
         amount = $("#amount").val();
         // make sure the amount field is not empty
         if (amount.length > 0) {
-          amount = App.formatEther(amount);
+          amount = App.web3.toWei(amount);
           App.deposit(amount);
         } else window.alert("Please Enter a valid Amount!");
       });
@@ -137,7 +135,7 @@ App = {
 
         // make sure the amount field is not empty
         if (amount.length > 0) {
-          amount = App.formatEther(amount);
+          amount = App.web3.toWei(amount);
           // make sure user has enough balance
           bal = await App.getBalance();
           if (amount <= bal) {
@@ -166,15 +164,14 @@ App = {
     App.loading = false;
   },
   setBalance: async () => {
-    $("#balance").html(`${App.formatMoney(await App.getBalance())}`);
+    bal_wei = await App.getBalance();
+    $("#balance").html(`${App.formatMoney(bal_wei)}`);
+    $("#bal-ether").html(`${App.web3.fromWei(bal_wei, "ether")} ETH`);
+    $("#bal-ether").show();
   },
 
-  // fetch and set exchange rate using coinbase API
-  // one problem with continuously using newer rates is they could be higher or lower
-  // for example if you deposit RM 100 today then come tomorrow and try to withdraw it,
-  // it might be more or less depending on the exchange rate changes
-  // this might raise a low funds transfer event if the exchange is now higher
-  setExchange: async () => {
+  // fetch and set exchange rate using coinbase API (used to convert balance to MYR)
+  setRate: async () => {
     App.rate = 0;
     await fetch("https://api.coinbase.com/v2/exchange-rates?currency=ETH")
       .then((response) => {
@@ -184,8 +181,6 @@ App = {
         App.rate = str_json.data.rates.MYR;
       });
   },
-  // convert to ether and finally to wei
-  formatEther: (amount) => App.web3.toWei(amount / App.rate),
 
   // convert and format number to MYR
   formatMoney: (amount) => {
