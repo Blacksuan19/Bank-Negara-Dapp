@@ -121,10 +121,10 @@ App = {
               <td class="pl-3 leading-10">${
                 result[key].args.accountAddress
               }</td>
-              <td class="text-center leading-10">ETH ${App.web3.fromWei(
+              <td class="text-center leading-10">${App.web3.fromWei(
                 result[key].args.amount,
                 "ether"
-              )}</td>
+              )} ETH</td>
               <td class="pr-1 text-center leading-10">${await App.getTimeByBlock(
                 result[key].transactionHash
               )}</td>
