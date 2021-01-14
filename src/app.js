@@ -53,8 +53,15 @@ App = {
     return value.toNumber();
   },
 
-  setThreshold: async () => {
-    await App.bankNegara.setThreshold({ from: App.account });
+  setThreshold: async (value) => {
+    await App.bankNegara
+      .setThreshold(value, { from: App.account })
+      .then(async () => {
+        $("#threshold").html(
+          `${App.formatMoney(await App.getThreshold())} /
+         ${App.web3.fromWei(thres)} ETH`
+        );
+      });
   },
   getThreshold: async () => {
     thres = await App.bankNegara.threshold({ from: App.account });
@@ -100,6 +107,15 @@ App = {
         `${App.formatMoney(await App.getThreshold())} /
          ${App.web3.fromWei(thres)} ETH`
       );
+
+      $("#update-threshold").click(() => {
+        new_val = $("#thres-val").val();
+        if (new_val.length > 0) {
+          new_val = App.web3.toWei(new_val);
+          console.log(new_val);
+          App.setThreshold(new_val);
+        } else window.alert("Please Enter a valid Amount!");
+      });
 
       $("#thres-div").show();
       $("#admin").show();

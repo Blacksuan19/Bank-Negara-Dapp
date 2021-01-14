@@ -38,7 +38,36 @@
       </div>
     </div>
     <div id="admin" style="display: none">
-      <div class="w-full flex flex-row"></div>
+      <div class="w-full flex flex-row pt-32">
+        <div
+          class="w-full flex flex-col justify-center items-center justify-items-center pl-8 space-y-5"
+        >
+          <div class="flex flex-row items-center justify-center">
+            <span
+              class="z-10 text-gray-800 absolute items-center justify-start pl-2.5 py-3"
+              style="margin-left: -11rem"
+            >
+              ETH
+            </span>
+            <input
+              class="input border border-gray-400 rounded-md px-2 ml py-3 pl-11 focus focus:border-red-500 focus:outline-none"
+              id="thres-val"
+              type="number"
+              placeholder="0"
+            />
+          </div>
+          <button
+            class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 items-center p-3 w-52 h-12 bg-indigo-500 rounded-md hover:bg-indigo-700 focus:outline-none"
+            id="update-threshold"
+          >
+            <p
+              class="w-full h-full text-xl font-medium tracking-wide text-center text-white"
+            >
+              Update threshold
+            </p>
+          </button>
+        </div>
+      </div>
     </div>
     <div id="customer" style="display: none">
       <div class="flex flex-row space-x-3 pt-40 items-center justify-center">
