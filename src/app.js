@@ -156,6 +156,9 @@ App = {
     // set account shown on top left
     $("#account").html(App.account);
 
+    // set exchange rate
+    $("#rate").html(`1 ETH = RM ${App.rate}`);
+
     // set balance
     App.setBalance();
 
@@ -167,6 +170,10 @@ App = {
   },
 
   // fetch and set exchange rate using coinbase API
+  // one problem with continuously using newer rates is they could be higher or lower
+  // for example if you deposit RM 100 today then come tomorrow and try to withdraw it,
+  // it might be more or less depending on the exchange rate changes
+  // this might raise a low funds transfer event if the exchange is now higher
   setExchange: async () => {
     App.rate = 0;
     await fetch("https://api.coinbase.com/v2/exchange-rates?currency=ETH")

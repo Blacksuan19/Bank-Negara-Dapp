@@ -14,14 +14,18 @@
   </head>
 
   <body>
-    <div class="flex w-full max-h-44 py-2.5 justify-between bg-red-500">
+    <div class="flex w-full max-h-44 py-2.5 justify-around bg-red-500">
       <p
-        class="h-full text-xl pl-2 font-medium leading-loose text-white"
+        class="h-full text-xl pl-3 font-medium leading-loose flex-1 text-white"
         id="account"
       >
         Account Number
       </p>
-      <p class="h-full text-3xl text-white pr-2 uppercase">Bank Negara</p>
+      <p class="text-3xl text-white uppercase">Bank Negara</p>
+      <div class="flex flex-row pr-3 flex-1 justify-end">
+        <p class="text-l leading-10 text-white">Exchange Rate: &nbsp;</p>
+        <p class="text-l leading-10 text-white" id="rate">1 ETH = RM</p>
+      </div>
     </div>
     <div class="flex flex-row justify-center space-x-40 items-center">
       <div class="flex flex-col pt-20 pb-10 items-center">
