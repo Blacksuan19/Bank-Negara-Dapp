@@ -88,6 +88,58 @@ App = {
     });
   },
 
+  // get all instances of high balance event
+  getHighBalanceEvent: async () => {
+    await App.bankNegara
+      .HighBalance({}, { fromBlock: 0, toBlock: "latest" })
+      .get(async (error, result) => {
+        if ((result != null) & !error) {
+          last = result[Object.keys(result)[Object.keys(result).length - 1]];
+          accounts = last.args.suspectedAccounts;
+          // append to table body
+          for (var acc in accounts)
+            $("#highbal tbody").append(
+              `<tr><td class="pl-3 pr-3 leading-10">${accounts[acc]}</td></t>`
+            );
+          // when there are no cases of the event
+        } else
+          $("#highbal tbody").append(
+            `<tr><td class="pl-3 pr-3 leading-10">No Suspected Accounts</td></t>`
+          );
+      });
+  },
+
+  // get all instances of above limit transaction event
+  getAboveLimitEvent: async () => {
+    await App.bankNegara
+      .AboveLimitTransaction({}, { fromBlock: 0, toBlock: "latest" })
+      .get(async (error, result) => {
+        if ((result != null) & !error) {
+          for (var key in result) {
+            // append to table body
+            $("#abovelim tbody").append(`<tr>
+              <td class="pl-3 leading-10">${
+                result[key].args.accountAddress
+              }</td>
+              <td class="text-center leading-10">ETH ${App.web3.fromWei(
+                result[key].args.amount,
+                "ether"
+              )}</td>
+              <td class="pr-1 text-center leading-10">${await App.getTimeByBlock(
+                result[key].transactionHash
+              )}</td>
+            </t>`);
+          }
+        } else {
+          $("#abovelim tbody").append(`<tr>
+              <td></td>
+              <td class="text-center leading-10"> No Above Limit Transactions</td>
+              <td></td>
+            </t>`);
+        }
+      });
+  },
+
   render: async () => {
     // Prevent double render
     if (App.loading) {
@@ -105,6 +157,7 @@ App = {
       // set threshold amount
       thres = await App.getThreshold();
       $("#threshold").html(`${App.web3.fromWei(thres)} ETH`);
+      $("#thres-rm").html(`${App.formatMoney(thres)}`);
 
       $("#update-threshold").click(() => {
         new_val = $("#thres-val").val();
@@ -114,8 +167,11 @@ App = {
           App.setThreshold(new_val);
         } else window.alert("Please Enter a valid Amount!");
       });
+      await App.getAboveLimitEvent();
+      await App.getHighBalanceEvent();
 
       $("#thres-div").show();
+
       $("#admin").show();
     } else {
       $("#type-label").html("Balance");
@@ -167,7 +223,6 @@ App = {
     bal_wei = await App.getBalance();
     $("#balance").html(`${App.formatMoney(bal_wei)}`);
     $("#bal-ether").html(`${App.web3.fromWei(bal_wei, "ether")} ETH`);
-    $("#bal-ether").show();
   },
 
   // fetch and set exchange rate using coinbase API (used to convert balance to MYR)
@@ -192,6 +247,13 @@ App = {
     });
 
     return formatter.format(amount);
+  },
+  // get transaction time and convert unix timestamp to normal date
+  getTimeByBlock: async (txHash) => {
+    const blockN = await App.web3.eth.getTransaction(txHash);
+    const blockData = await App.web3.eth.getBlock(blockN.blockNumber);
+
+    return dayjs.unix(blockData.timestamp).format("DD/MM/YYYY, HH:mm:ss A");
   },
 };
 

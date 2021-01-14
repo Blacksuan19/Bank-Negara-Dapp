@@ -31,26 +31,22 @@
       <div class="flex flex-col pt-20 pb-10 items-center">
         <p class="text-xl leading-10 text-red-500" id="type-label">Balance</p>
         <p class="text-5xl leading-10 text-red-500" id="balance">RM 0.00</p>
-        <p class="text-xl leading-10 text-red-500 hidden" id="bal-ether">
-          ETH 0.00
-        </p>
+        <p class="text-xl leading-10 text-red-500" id="bal-ether">ETH 0.00</p>
+      </div>
+      <div
+        class="flex flex-col items-center pt-20 pb-10"
+        id="thres-div"
+        style="display: none"
+      >
+        <p class="text-xl leading-10 text-red-500">Current Threshold</p>
+        <p class="text-4xl leading-10 text-red-500" id="threshold">ETH 0.00</p>
+        <p class="text-xl leading-10 text-red-500" id="thres-rm">RM 0.00</p>
       </div>
     </div>
-    <div id="admin" class="hidden">
-      <div class="w-full flex flex-row pt-16">
-        <div
-          class="w-full flex flex-col items-center justify-between space-y-5"
-        >
-          <div
-            class="flex flex-col pt-20 pb-10 items-center"
-            id="thres-div"
-            style="display: none"
-          >
-            <p class="text-xl leading-10 text-red-500">Current Threshold</p>
-            <p class="text-4xl leading-10 text-red-500" id="threshold">
-              RM 0.00
-            </p>
-          </div>
+    <div id="admin" class="pt-40 hidden">
+      <div class="flex flex-row items-start justify-between pl-3 pr-3">
+        <div class="flex flex-col items-center justify-center space-y-5">
+          <p class="text-l leading-10 text-red-500">Update Threshold</p>
           <div class="flex flex-row items-center justify-center">
             <span
               class="z-10 text-gray-800 absolute items-center -ml-44 justify-start pl-2.5 py-3"
@@ -65,7 +61,7 @@
             />
           </div>
           <button
-            class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 items-center p-3 w-52 h-12 bg-indigo-500 rounded-md hover:bg-indigo-700 focus:outline-none"
+            class="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 items-center p-3 w-52 h-12 bg-red-500 rounded-md hover:bg-red-700 focus:outline-none"
             id="update-threshold"
           >
             <p
@@ -74,6 +70,44 @@
               Update threshold
             </p>
           </button>
+        </div>
+        <div class="flex flex-col justify-center items-center">
+          <p class="text-l leading-10 text-red-500">
+            Transactions Above Threshold Limit
+          </p>
+          <table id="abovelim" class="table-auto p-20">
+            <thead class="justify-between">
+              <tr>
+                <th class="sticky top-0 px-6 py-3 text-red-900 bg-red-300">
+                  Account
+                </th>
+                <th class="sticky top-0 px-6 py-3 text-red-900 bg-red-300">
+                  Amount
+                </th>
+                <th class="sticky top-0 px-6 py-3 text-red-900 bg-red-300">
+                  TimeStamp (Malaysia Time)
+                </th>
+              </tr>
+            </thead>
+            <!-- empty table body will be filled from js -->
+            <tbody class="justify-between divide-y bg-red-100"></tbody>
+          </table>
+        </div>
+        <div class="flex flex-col justify-center items-center">
+          <p class="text-l leading-10 text-red-500">
+            Accounts Suspected of Money Laundering
+          </p>
+          <table id="highbal" class="table-auto p-20">
+            <thead class="justify-between">
+              <tr>
+                <th class="sticky top-0 px-6 py-3 text-red-900 bg-red-300">
+                  Account Number
+                </th>
+              </tr>
+            </thead>
+            <!-- empty table body will be filled from js -->
+            <tbody class="justify-between divide-y bg-red-100"></tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -115,6 +149,11 @@
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.3/dayjs.min.js"
+      integrity="sha512-0fcCRl828lBlrSCa8QJY51mtNqTcHxabaXVLPgw/jPA5Nutujh6CbTdDgRzl9aSPYW/uuE7c4SffFUQFBAy6lg=="
+      crossorigin="anonymous"
+    ></script>
     <!-- latest version of truffle-contract has been moved to truffle@contract with drastic changes that will break this app (for some reason) so stick to older package and version -->
     <script src="vendor/truffle-contract/dist/truffle-contract.js"></script>
     <script src="app.js"></script>

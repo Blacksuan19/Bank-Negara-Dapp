@@ -55,4 +55,10 @@ a decentralized App representing a bank
 
 ### Customer
 
-![customers](./screens/customers.png)
+![customer](./screens/customer.png)
+<br><br>
+![customer2](./screens/deposit.png)
+
+### Admin
+
+![admin](./screens/admin.png)
