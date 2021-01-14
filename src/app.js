@@ -6,6 +6,7 @@ App = {
     await App.loadWeb3();
     await App.loadAccount();
     await App.loadContract();
+    await App.setExchange();
     await App.render();
   },
 
@@ -148,13 +149,24 @@ App = {
   setBalance: async () => {
     $("#balance").html(`${App.formatMoney(await App.getBalance())}`);
   },
+
+  // fetch and set exchange rate using coinbase API
+  setExchange: async () => {
+    App.rate = 0;
+    await fetch("https://api.coinbase.com/v2/exchange-rates?currency=ETH")
+      .then((response) => {
+        return response.json();
+      })
+      .then((str_json) => {
+        App.rate = str_json.data.rates.MYR;
+      });
+  },
   // convert to ether and finally to wei
-  formatEther: (amount) => App.web3.toWei(amount / 4470.22),
+  formatEther: (amount) => App.web3.toWei(amount / App.rate),
 
   // convert and format number to MYR
   formatMoney: (amount) => {
-    // convert to ether then to myr according to rates as of 14-01-2021
-    amount = App.web3.fromWei(amount, "ether") * 4470.22;
+    amount = App.web3.fromWei(amount, "ether") * App.rate;
 
     var formatter = new Intl.NumberFormat("en-MY", {
       style: "currency",

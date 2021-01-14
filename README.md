@@ -11,6 +11,7 @@ a decentralized App representing a bank
 - strict checks using modifiers.
 - strict checks in web interface.
 - different interface for admin and regular customers.
+- up to exchange rate via coinbase API.
 
 ### Admin
 
