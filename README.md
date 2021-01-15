@@ -76,3 +76,8 @@ o add accounts from ganache to metamask follow [this guide](https://www.truffles
 ### Admin
 
 ![admin](./screens/admin.png)
+
+## Credits
+
+- [Dapp-university](https://www.dappuniversity.com/) for the helpful tutorials and Javascript boilerplate.
+- Google and StackOverflow for always answering my questions.
