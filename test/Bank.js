@@ -13,7 +13,7 @@ contract("Bank", (accounts) => {
   it("should set threashold successfully", async () => {
     // accounts[0] is the owner
     await bank.setThreshold(20, { from: accounts[0] });
-    thres = await bank.threashold();
+    thres = await bank.threshold();
     assert.equal(thres.toNumber(), 20);
   });
 
