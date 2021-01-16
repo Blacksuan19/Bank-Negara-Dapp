@@ -99,12 +99,12 @@ App = {
           // append to table body
           for (var acc in accounts)
             $("#highbal tbody").append(
-              `<tr><td class="pl-3 pr-3 leading-10">${accounts[acc]}</td></t>`
+              `<tr><td class="pl-3 pr-3 leading-10">${accounts[acc]}</td></tr>`
             );
           // when there are no cases of the event
         } else
           $("#highbal tbody").append(
-            `<tr><td class="pl-3 pr-3 leading-10">No Suspected Accounts</td></t>`
+            `<tr><td class="pl-3 pr-3 leading-10">No Suspected Accounts</td></tr>`
           );
       });
   },
@@ -128,14 +128,14 @@ App = {
               <td class="pr-1 text-center leading-10">${await App.getTimeByBlock(
                 result[key].transactionHash
               )}</td>
-            </t>`);
+            </tr>`);
           }
         } else {
           $("#abovelim tbody").append(`<tr>
               <td></td>
               <td class="text-center leading-10"> No Above Limit Transactions</td>
               <td></td>
-            </t>`);
+            </tr>`);
         }
       });
   },
